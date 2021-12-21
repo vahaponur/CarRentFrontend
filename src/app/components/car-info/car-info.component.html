@@ -8,7 +8,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let carInfo of carInfos">
+      <tr *ngFor="let carInfo of carInfos | slice:0:20">
        
         <td>{{carInfo.brand}}</td>
         <td>{{carInfo.color}}</td>

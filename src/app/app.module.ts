@@ -12,6 +12,7 @@ import { ColorComponent } from './components/color/color.component';
 
 import { RentalComponent } from './components/rental/rental.component';
 import { CarInfoComponent } from './components/car-info/car-info.component';
+import { CustomerComponent } from './components/customer/customer.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CarInfoComponent } from './components/car-info/car-info.component';
     ColorComponent,
 
     RentalComponent,
-     CarInfoComponent
+     CarInfoComponent,
+     CustomerComponent
   ],
   imports: [
     BrowserModule,

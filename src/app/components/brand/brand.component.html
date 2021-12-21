@@ -5,7 +5,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let brand of brands">
+      <tr *ngFor="let brand of brands | slice:0:20">
        
         <td>{{brand.name}}</td>
     

@@ -12,4 +12,5 @@ export class UserService {
   getUsers():Observable<UserResponseModel>{
       return this.httpClient.get<UserResponseModel>(this.apiUrl);
   }
+ 
 }
