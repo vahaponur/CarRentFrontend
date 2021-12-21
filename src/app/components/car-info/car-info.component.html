@@ -8,14 +8,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let carInfo of cars">
+      <tr *ngFor="let carInfo of carInfos">
        
-        <td>{{carInfo.brandId}}</td>
-        <td>{{carInfo.colorId}}</td>
+        <td>{{carInfo.brand}}</td>
+        <td>{{carInfo.color}}</td>
         <td>{{carInfo.name}}</td>
         <td>{{carInfo.dailyPrice}}</td>
       </tr>
      
     </tbody>
   </table>
-

@@ -4,3 +4,6 @@ import { ResponseModel } from "../responseModel";
 export interface ColorResponseModel extends ResponseModel{
     data:Color[];
 }
+export interface IndvColorResponseModel extends ResponseModel{
+    data:Color;
+}
