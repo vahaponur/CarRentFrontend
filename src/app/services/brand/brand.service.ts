@@ -1,23 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BrandResponseModel, IndvBrandResponseModel } from 'src/app/models/brand/brandResponseModel';
+import { Brand } from 'src/app/models/brand/brand';
+import { ListResponseModel } from 'src/app/models/responseModels/listResponseModel';
+import { ResponseModel } from 'src/app/models/responseModels/responseModel';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BrandService {
-  apiUrl = 'https://localhost:44349/api/brands/getall';
-  individualUrl = 'https://localhost:44349/api/brands/getbyid?id=';
+  apiUrl = 'https://localhost:44349/api/brands/';
 
   constructor(private httpClient: HttpClient) {}
 
-  getBrands(): Observable<BrandResponseModel> {
-    return this.httpClient.get<BrandResponseModel>(this.apiUrl);
+  getBrands(): Observable<ListResponseModel<Brand>> {
+    let newPath = this.apiUrl + 'getall';
+    return this.httpClient.get<ListResponseModel<Brand>>(newPath);
   }
-  getBrandById(id: number): Observable<IndvBrandResponseModel> {
-    return this.httpClient.get<IndvBrandResponseModel>(
-      this.individualUrl + id.toString()
-    );
+  getBrandById(id: number): Observable<ResponseModel<Brand>> {
+    let newPath = this.apiUrl + 'getbyid?id=' + id;
+    return this.httpClient.get<ResponseModel<Brand>>(newPath);
   }
 }
