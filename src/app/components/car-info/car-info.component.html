@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table table-dark">
     <thead>
       <tr>
         <th scope="col">Brand</th>
@@ -8,7 +8,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let carInfo of carInfos | slice:0:20">
+      <tr *ngFor="let carInfo of carInfos">
        
         <td>{{carInfo.brandName}}</td>
         <td>{{carInfo.colorName}}</td>

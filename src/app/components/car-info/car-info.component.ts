@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CarInfo } from 'src/app/models/carInfo/carInfo';
 import { BrandService } from 'src/app/services/brand/brand.service';
 import { CarService } from 'src/app/services/car/car.service';
@@ -14,10 +15,22 @@ export class CarInfoComponent implements OnInit {
   carInfos: CarInfo[] = [];
 
   constructor(
-   private carInfoService:CarInfoService
+   private carInfoService:CarInfoService,
+   private activatedRoute:ActivatedRoute
   ) {}
   ngOnInit(): void {
-    this.getCarInfos();
+    this.activatedRoute.params.subscribe(res=>{
+      if (res["brandId"]) {
+        this.getCarInfosByBrandId(res["brandId"]);
+      }
+      else if (res["colorId"]) {
+        this.getCarInfosByColorId(res["colorId"]);
+      }
+      else{
+        this.getCarInfos();
+      }
+    })
+    
   }
   getCarInfos(){
     this.carInfoService.getCarDetails().subscribe(response=>{

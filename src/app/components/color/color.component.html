@@ -5,7 +5,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let color of colors | slice:0:20">
+      <tr [class]="getCurrentColorClass(color)" routerLink="color/{{color.id}}" (click)="setCurrentColor(color)" *ngFor="let color of colors | slice:0:20">
        
         <td>{{color.name}}</td>
     
