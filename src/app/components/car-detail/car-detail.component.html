@@ -1,0 +1,13 @@
+<img *ngIf="carImages===undefined" src=".\assets\car_images\def.jpg" alt="" srcset="">
+<img *ngFor="let image of carImages" [src]="image.imagePath |filePathPipe:'asset'" class="rounded img-thumbnail" alt="...">
+<ul  class="list-group">
+    <li class="list-group-item list-group-item-info">Model: {{carInfo.name}}</li>
+    <li class="list-group-item list-group-item-info">Brand: {{carInfo.brandName}}</li>
+    <li class="list-group-item list-group-item-info">Color: {{carInfo.colorName}}</li>
+    <li class="list-group-item list-group-item-info">Model Year: {{carInfo.modelYear}}</li>
+    <li class="list-group-item list-group-item-info">Description: {{carInfo.description}}</li>
+    <li class="list-group-item list-group-item-info">Price/Day: {{carInfo.dailyPrice | currency}}</li>
+
+  </ul>
+
+  <button class="btn btn-success"><a routerLink="/">Back</a> </button>

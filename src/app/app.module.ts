@@ -14,6 +14,10 @@ import { RentalComponent } from './components/rental/rental.component';
 import { CarInfoComponent } from './components/car-info/car-info.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { CarImageComponent } from './components/car-image/car-image.component';
+import { CarDetailComponent } from './components/car-detail/car-detail.component';
+import { SafePipePipe } from './pipes/safe-pipe.pipe';
+import { FormsModule } from '@angular/forms';
+import { FilePathPipePipe } from './pipes/file-path-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -27,12 +31,16 @@ import { CarImageComponent } from './components/car-image/car-image.component';
     RentalComponent,
      CarInfoComponent,
      CustomerComponent,
-     CarImageComponent
+     CarImageComponent,
+     CarDetailComponent,
+     SafePipePipe,
+     FilePathPipePipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
