@@ -2,20 +2,23 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-3">
-      <app-brand></app-brand>
-    </div>
-    <div class="col-md-3">
-      <router-outlet></router-outlet>
-    </div>
-  
-  </div>
-    <div class="row">
-
-      <div class="col-md-3">
-        <app-color></app-color>
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <app-brand></app-brand>
+          </div>
+       
+        </div>
+        <div class="row">   
+          <div class="col">
+          <app-color></app-color>
+        </div></div>
       </div>
-
+    </div>
+    <div class="col-md-9">
     
-
+        <router-outlet></router-outlet>
+    
+    </div>
   </div>
 </div>

@@ -18,6 +18,7 @@ import { CarDetailComponent } from './components/car-detail/car-detail.component
 import { SafePipePipe } from './pipes/safe-pipe.pipe';
 import { FormsModule } from '@angular/forms';
 import { FilePathPipePipe } from './pipes/file-path-pipe.pipe';
+import { FilterTextPipe } from './pipes/filter-text.pipe';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { FilePathPipePipe } from './pipes/file-path-pipe.pipe';
      CarImageComponent,
      CarDetailComponent,
      SafePipePipe,
-     FilePathPipePipe
+     FilePathPipePipe,
+     FilterTextPipe
   ],
   imports: [
     BrowserModule,

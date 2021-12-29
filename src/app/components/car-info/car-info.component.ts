@@ -14,6 +14,7 @@ import { ColorService } from 'src/app/services/color/color.service';
 })
 export class CarInfoComponent implements OnInit {
   carInfos: CarInfo[] = [];
+  searchText:string='';
 
   constructor(
    private carInfoService:CarInfoService,
@@ -35,7 +36,7 @@ export class CarInfoComponent implements OnInit {
         this.getCarInfos();
       }
     })
-    console.log(this.activatedRoute.toString());
+
   }
   getCarInfos(){
     this.carInfoService.getCarDetails().subscribe(response=>{
