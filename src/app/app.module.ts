@@ -42,7 +42,8 @@ import { FilterTextPipe } from './pipes/filter-text.pipe';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

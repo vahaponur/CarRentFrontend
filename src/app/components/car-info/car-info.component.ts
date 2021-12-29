@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Brand } from 'src/app/models/brand/brand';
 import { Car } from 'src/app/models/car/car';
 import { CarInfo } from 'src/app/models/carInfo/carInfo';
+import { Color } from 'src/app/models/color/color';
 import { BrandService } from 'src/app/services/brand/brand.service';
 import { CarService } from 'src/app/services/car/car.service';
 import { CarInfoService } from 'src/app/services/carInfo/car-info.service';
@@ -15,13 +17,19 @@ import { ColorService } from 'src/app/services/color/color.service';
 export class CarInfoComponent implements OnInit {
   carInfos: CarInfo[] = [];
   searchText:string='';
-
+  colors:Color[];
+  brands:Brand[];
+  colorSearch:string='';
+  brandSearch:string='';
   constructor(
    private carInfoService:CarInfoService,
    private activatedRoute:ActivatedRoute,
-
+   private colorService:ColorService,
+   private brandService:BrandService
   ) {}
   ngOnInit(): void {
+    this.getBrands();
+    this.getColors();
     this.activatedRoute.params.subscribe(res=>{
       if (res["brandId"]) {
         this.getCarInfosByBrandId(res["brandId"]);
@@ -59,5 +67,14 @@ export class CarInfoComponent implements OnInit {
       this.carInfos.push(response.data)
     })
   }
-  
+  getColors(){
+    this.colorService.getColors().subscribe(res=>this.colors=res.data);
+  }
+  getBrands(){
+    this.brandService.getBrands().subscribe(res=>this.brands=res.data);
+  }
+  filterByClick(filterText:string){
+    this.searchText = filterText;
+    console.log(this.searchText);
+  }
 }
