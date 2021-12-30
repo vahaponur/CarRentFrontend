@@ -9,5 +9,8 @@
     <li class="list-group-item list-group-item-info">Price/Day: {{carInfo.dailyPrice | currency}}</li>
 
   </ul>
-
-  <a routerLink="/"> <button class="btn btn-success">Back </button></a>
+  <div class="d-grid gap-2">
+    <button routerLink="/rent/{{carInfo.carId}}" class="btn btn-success btn-lg btn-block">Rent This Car!</button>
+     <button class="btn btn-danger" routerLink="/">Back </button> 
+ 
+  </div>

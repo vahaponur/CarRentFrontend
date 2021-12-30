@@ -1,0 +1,32 @@
+<form>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3">
+        <label for="rentDate" class="form-label">Rent Date</label>
+        <input
+          id="rentDate"
+          type="date"
+          class="form-control"
+          [(ngModel)]="rentDate"
+          [ngModelOptions]="{standalone:true}"
+        />
+      </div>
+      <div class="col-md-3">
+        <label for="returnDate" class="form-label">Return Date</label>
+        <input
+          type="date"
+          class="form-control"
+          id="returnDate"
+          [(ngModel)]="returnDate"
+          [ngModelOptions]="{standalone:true}"
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <button (click)="dateWarning()" type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+</form>
