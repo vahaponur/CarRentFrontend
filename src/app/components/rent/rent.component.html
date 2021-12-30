@@ -1,3 +1,25 @@
+
+<div class="container-fluid">
+  <h3>Rent This Car</h3>
+  <div class="row">
+    <div class="col">
+      <ul class="list-group">
+
+        <li class="list-group-item list-group-item-info">{{car.name}}</li>
+        <li class="list-group-item list-group-item-info">{{car.brandName}}</li>
+        <li class="list-group-item list-group-item-info">{{car.colorName}}</li>
+        <li class="list-group-item list-group-item-info">{{car.modelYear}}</li>
+      
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col"> 
+      
+    </div>
+  </div>
+</div>
+<br>
 <form>
   <div class="container-fluid">
     <div class="row">
@@ -19,13 +41,14 @@
           id="returnDate"
           [(ngModel)]="returnDate"
           [ngModelOptions]="{standalone:true}"
+          (click)="createRental(rentDate,returnDate,3)"
         />
       </div>
     </div>
 
     <div class="row">
       <div class="col">
-        <button (click)="dateWarning()" type="submit" class="btn btn-primary">Submit</button>
+        <button  (click)="createRental(rentDate,returnDate,3)" [routerLink]="paymentLink(shouldRouteToPayment)" type="submit" class="btn btn-primary">Submit</button>
       </div>
     </div>
   </div>

@@ -1,0 +1,14 @@
+<form>
+    <div class="mb-3">
+      <label for="creditCardNo" class="form-label">Credit Card Number</label>
+      <input type="number" [(ngModel)]="card.number" class="form-control" id="creditCardNo" name="ownerName" aria-describedby="cardNo">
+     
+    </div>
+    <div class="mb-3">
+      <label for="ownerName" class="form-label">Owner Name</label>
+      <input type="text" [(ngModel)]="card.ownerName" class="form-control" id="ownerName" name="ownerName">
+    </div>
+
+    <button (click)="makePayment(card)" type="submit" class="btn btn-primary">Submit</button>
+  </form>
+<p *ngIf="paymentMade">{{result.message}}</p>

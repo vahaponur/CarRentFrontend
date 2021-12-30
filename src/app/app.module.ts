@@ -27,6 +27,7 @@ import { RentComponent } from './components/rent/rent.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ToastrModule } from 'ngx-toastr';
+import { PaymentComponent } from './components/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ToastrModule } from 'ngx-toastr';
      FilePathPipePipe,
      FilterTextPipe,
      CartSummaryComponent,
-     RentComponent
+     RentComponent,
+     PaymentComponent
   ],
   imports: [
     BrowserModule,
