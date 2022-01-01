@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { empty } from 'rxjs';
+import { Car } from 'src/app/models/car/car';
 import { CarInfo } from 'src/app/models/carInfo/carInfo';
 import { PostModel } from 'src/app/models/postModel/postModel';
 import { Rental } from 'src/app/models/rental/rental';
@@ -16,25 +18,19 @@ import { RentalService } from 'src/app/services/rental/rental.service';
   styleUrls: ['./rent.component.css'],
 })
 export class RentComponent implements OnInit {
-  car: CarInfo;
-  rentDate: string;
-  returnDate: string;
-  rentDatePost: Date;
-  returnDatePost: Date;
-  shouldRouteToPayment:boolean = false;
-  currentPostModel: PostModel;
-  rentalToAdd: Rental = new Rental();
-  rentQueryResult: Rental;
-  routerLink: string;
+  lastRentOfCar: Rental = new Rental();
+  currentCarInfo: CarInfo;
+  paymentLinkInfo:string
+  rentForm: FormGroup;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private carInfoService: CarInfoService,
     private rentService: RentalService,
-    private toastr: ToastrService
-  ) {
-    this.rentDate = new Date().toJSON().slice(0, 10);
-    this.returnDate = this.addDays(new Date(), 1).toJSON().slice(0, 10);
-  }
+    private toastr: ToastrService,
+    private formBuilder: FormBuilder,
+    private router:Router
+  ) {}
   //#region manipulate Methods
   addDays(date: Date, days: number): Date {
     date.setDate(date.getDate() + days);
@@ -55,80 +51,97 @@ export class RentComponent implements OnInit {
   //#endregion
 
   ngOnInit(): void {
+    this.createForm();
     this.activatedRoute.params.subscribe((param) => {
       if (param['carId']) {
-        this.carInfoService
-          .getCarDetailsById(param['carId'])
-          .subscribe((res) => {
-            this.car = res.data;
-            this.getRentalByCarId(param['carId']);
-          });
-          Singleton.RENT.carId=Number(param['carId']);
-        this.rentalToAdd.carId = Number(param['carId']);
+        let carId = param['carId'];
+        this.getLastRental(carId);
+        this.getCurrentCarInfo(carId);
+        Singleton.RENT.carId = carId;
       }
     });
   }
-//#region Validation
-  controlDates(): boolean {
-    this.returnDatePost = new Date(this.returnDate);
-    this.rentDatePost = new Date(this.rentDate);
+  //#region Validation
+  controlDates(rentD: string, returnD: string): boolean {
+    let returnDate = new Date(returnD);
+    let rentDate = new Date(rentD);
     let rentDays =
-      (this.returnDatePost.valueOf() - this.rentDatePost.valueOf()) /
-      (24 * 60 * 60 * 1000);
+      (returnDate.valueOf() - rentDate.valueOf()) / (24 * 60 * 60 * 1000);
     if (rentDays <= 0) {
+      this.toastr.error('Rent date cannot be after or same as return date');
       return false;
     }
     return true;
   }
 
-  checkRental(rental: Rental): boolean {
-    if (!this.controlDates()) {
-      this.dateWarning();
-      return false;
-    }
-    if (!this.rentDateAvaliable(rental, this.rentQueryResult)) {
-      this.notAvaliableWarning();
-      return false;
-    }
-    
-    return true;
-  }
-  rentDateAvaliable(rental: Rental, rentQueryResult: Rental): boolean {
-    if (rentQueryResult!==null) {
-      return (
+  rentDateAvaliable(
+    rentD: string,
+ 
+    rentQueryResult: Rental
+  ): boolean {
+    let rentDate = new Date(rentD);
+    let isAvaliable = true;
+    if (rentQueryResult !== null) {
+       isAvaliable =
         new Date(rentQueryResult.returnDate).valueOf() <
-        new Date(rental.rentDate).valueOf()
-      );
+        new Date(rentDate).valueOf();
+        if (!isAvaliable) {
+          this.toastr.error("This car not avaliable in the required interval")
+        }
     }
-    return true;
-  }
-  //#endregion
-  createRental(rentDate: string, returnDate: string, customerId: number) {
-    let rental = new Rental();
-    rental.customerId = customerId;
-    rental.rentDate = rentDate;
-    rental.returnDate = returnDate;
-    this.rentalToAdd = rental;
-    this.rentalToAdd.carId = Singleton.RENT.carId;
-    console.log(this.rentQueryResult);
-    if (this.checkRental(this.rentalToAdd)) {
-      console.log(this.checkRental(this.rentalToAdd));
-      Singleton.RENT=this.rentalToAdd;
 
-      console.log(Singleton.RENT);
-      this.shouldRouteToPayment = true;
-    }
+    return isAvaliable;
   }
-  getRentalByCarId(carId: number) {
-    this.rentService.getRentalByCarId(carId).subscribe((res) => {
-      this.rentQueryResult = res.data;
+
+  //#endregion
+
+  //#region GetVariables
+
+  getLastRental(carId: number) {
+    this.rentService.getLastRentalByCarId(carId).subscribe((res) => {
+      if (res.data) {
+      this.lastRentOfCar = res.data; 
+      }
+
     });
   }
- 
-  paymentLink(rentalAvaliable: boolean):string {
-    if (rentalAvaliable) {
-      return '/pay/' + Singleton.RENT.carId.toString();
-    } 
-    return 'a value to not route';
+  getCurrentCarInfo(carId: number) {
+    this.carInfoService.getCarDetailsById(carId).subscribe((res) => {
+      this.currentCarInfo = res.data;
+    });
+  }
+  //#endregion
+
+  createForm() {
+    this.rentForm = this.formBuilder.group({
+      rentDate: ['', Validators.required],
+      returnDate: ['', Validators.required],
+    });
+  }
+  setRent():boolean {
+    if (this.rentForm.valid) {
+      console.log(this.rentForm.value);
+      let rent:Rental = Object.assign({}, this.rentForm.value);
+      if (this.rentDateAvaliable(rent.rentDate,this.lastRentOfCar)
+      &&this.controlDates(rent.rentDate,rent.returnDate)) {
+        Singleton.RENT.customerId=3;
+        Singleton.RENT.rentDate=rent.rentDate;
+        Singleton.RENT.returnDate=rent.returnDate;
+        return true;
+      }
+    }
+   
+    return false;
+  }
+  paymentLink(){
+    if (this.setRent()) {
+      this.paymentLinkInfo='/pay/'+Singleton.RENT.carId;
+      this.router.navigateByUrl(this.paymentLinkInfo);
+      return true;
+    }
+    this.paymentLinkInfo = "/rent/"+this.currentCarInfo.carId;
+
+    return false;
+    
   }
 }

@@ -1,5 +1,4 @@
-export interface ResponseModel<T>{
-    success:boolean,
-    message:string,
-    data:T
+export interface ResponseModel{
+    success:boolean
+    message:string
 }

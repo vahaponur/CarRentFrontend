@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CreditCard } from 'src/app/models/creditCard';
-import { PostModel } from 'src/app/models/postModel/postModel';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Singleton } from 'src/app/models/rentConst';
 import { BankService } from 'src/app/services/bank/bank.service';
 import { RentalService } from 'src/app/services/rental/rental.service';
@@ -8,32 +8,42 @@ import { RentalService } from 'src/app/services/rental/rental.service';
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.css']
+  styleUrls: ['./payment.component.css'],
 })
 export class PaymentComponent implements OnInit {
-  result:PostModel;
-  card:CreditCard ={
-    number:0,
-    ownerName:''
-  };
-  paymentMade:boolean = false;
-  constructor(private bankService:BankService,private rentService:RentalService) { }
+  creditCardForm: FormGroup;
+  constructor(
+    private bankService: BankService,
+    private rentService: RentalService,
+    private formBuilder:FormBuilder,
+    private toastr:ToastrService
+  ) {}
 
   ngOnInit(): void {
+    this.createCardForm();
   }
 
-  makePayment(creditCart:CreditCard){
-    this.bankService.makePayment(creditCart).subscribe(
-      response=>{
-
-        this.result = response;
-        this.rentService.addRental(Singleton.RENT).subscribe(rent=>{
-          this.paymentMade = true;
-          
-        })
-
-      }
-    )
+  createCardForm(){
+    this.creditCardForm = this.formBuilder.group({
+      number:[0,Validators.required],
+      ownerName:['',Validators.required],
+    })
+  }
+  addRent(){
+    this.rentService.addRental(Singleton.RENT).subscribe(res=>{
+      this.toastr.success(res.message.replace('Öğe','Araç'));
+    });
+  }
+  getPayment(){
+    if (this.creditCardForm.valid) {
+      let card = Object.assign({},this.creditCardForm.value);
+      this.bankService.makePayment(card).subscribe(res=>{
+        if (res.success) {
+          this.addRent();
+          this.toastr.success(res.message);
+        }
+      })
+    }
   }
 
 }

@@ -1,14 +1,30 @@
-<form>
-    <div class="mb-3">
-      <label for="creditCardNo" class="form-label">Credit Card Number</label>
-      <input type="number" [(ngModel)]="card.number" class="form-control" id="creditCardNo" name="ownerName" aria-describedby="cardNo">
-     
+<div class="container-fluid">
+  <h3 class="">Pay for Rent</h3>
+  <div class="row">
+    <div class="col">
+      <form [formGroup]="creditCardForm">
+        <div class="mb-3">
+          <label for="number" class="form-label">Card Number</label>
+          <input
+            type="email"
+            class="form-control"
+            id="number"
+            formControlName="number"
+            aria-describedby="emailHelp"
+          />
+        </div>
+        <div class="mb-3">
+            <label for="ownerName" class="form-label">Owner Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="ownerName"
+              formControlName="ownerName"
+              aria-describedby="emailHelp"
+            />
+          </div>
+        <button class="btn btn-success" (click)="getPayment()">Ekle</button>
+      </form>
     </div>
-    <div class="mb-3">
-      <label for="ownerName" class="form-label">Owner Name</label>
-      <input type="text" [(ngModel)]="card.ownerName" class="form-control" id="ownerName" name="ownerName">
-    </div>
-
-    <button (click)="makePayment(card)" type="submit" class="btn btn-primary">Submit</button>
-  </form>
-<p *ngIf="paymentMade">{{result.message}}</p>
+  </div>
+</div>

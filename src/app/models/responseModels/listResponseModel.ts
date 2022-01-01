@@ -1,5 +1,5 @@
-import { ResponseModel } from "./responseModel"
+import { DataResponseModel } from "./dataResponseModel"
 
-export interface ListResponseModel<T> extends Omit<ResponseModel<T>,"data">{
+export interface ListResponseModel<T> extends Omit<DataResponseModel<T>,"data">{
     data:T[];
 }

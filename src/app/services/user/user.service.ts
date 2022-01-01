@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListResponseModel } from 'src/app/models/responseModels/listResponseModel';
-import { ResponseModel } from 'src/app/models/responseModels/responseModel';
+import { DataResponseModel } from 'src/app/models/responseModels/dataResponseModel';
 import { User } from 'src/app/models/user/user';
 
 @Injectable({
@@ -15,9 +15,9 @@ export class UserService {
     let newPath = this.apiUrl + 'getall';
       return this.httpClient.get<ListResponseModel<User>>(newPath);
   }
-  getUserById(id:number):Observable<ResponseModel<User>>{
+  getUserById(id:number):Observable<DataResponseModel<User>>{
     let newPath = this.apiUrl + 'getbyid?id='+id;
-    return this.httpClient.get<ResponseModel<User>>(newPath); 
+    return this.httpClient.get<DataResponseModel<User>>(newPath); 
   }
  
 }
