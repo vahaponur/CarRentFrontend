@@ -1,0 +1,40 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <form [formGroup]="carForm">
+                <div class="mb-3">
+                    <label for="brandId" class="form-label">Brand Id</label>
+                    <input type="number" class="form-control" id="brandId" formControlName="brandId">
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="colorId" class="form-label">Color Id</label>
+                    <input type="number" class="form-control" id="colorId" formControlName="colorId">
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="modelYear" class="form-label">Model Year</label>
+                    <input type="number" class="form-control" id="modelYear" formControlName="modelYear">
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="dailyPrice" class="form-label">Daily Price</label>
+                    <input type="number" class="form-control" id="dailyPrice" formControlName="dailyPrice">
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <input type="text" class="form-control" id="description" formControlName="description">
+                  </div>
+                  <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" formControlName="name">
+                  </div>
+
+
+                  <button class="btn  btn-success" (click)="addCar()">Ekle</button>
+            </form>
+        </div>
+    </div>
+</div>
+

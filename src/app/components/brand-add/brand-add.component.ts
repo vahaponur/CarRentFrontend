@@ -30,8 +30,13 @@ export class BrandAddComponent implements OnInit {
         this.toastrService.success('Başarıyla Eklendi');
       }
     },responseError=>{
-      if (responseError.error) {
-        console.log(responseError.error);
+   
+      if (responseError.error.Errors.length>0) {
+        for (let i = 0; i < responseError.error.Errors.length; i++) {
+          let item = responseError.error.Errors[i].ErrorMessage;
+          this.toastrService.error(item);
+          
+        }
       }
     })
    }

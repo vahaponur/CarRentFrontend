@@ -33,6 +33,7 @@ import { CartSummaryComponent } from './components/cart-summary/cart-summary.com
 import { RentComponent } from './components/rent/rent.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { BrandAddComponent } from './components/brand-add/brand-add.component';
+import { CarAddComponent } from './components/car-add/car-add.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { BrandAddComponent } from './components/brand-add/brand-add.component';
      CartSummaryComponent,
      RentComponent,
      PaymentComponent,
-     BrandAddComponent
+     BrandAddComponent,
+     CarAddComponent
   ],
   imports: [
     BrowserModule,
