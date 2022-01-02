@@ -18,7 +18,7 @@ import { RentalService } from 'src/app/services/rental/rental.service';
   styleUrls: ['./rent.component.css'],
 })
 export class RentComponent implements OnInit {
-  lastRentOfCar: Rental = new Rental();
+  lastRentOfCar: Rental;
   currentCarInfo: CarInfo;
   paymentLinkInfo:string
   rentForm: FormGroup;
@@ -54,7 +54,7 @@ export class RentComponent implements OnInit {
     this.createForm();
     this.activatedRoute.params.subscribe((param) => {
       if (param['carId']) {
-        let carId = param['carId'];
+        let carId = Number (param['carId'])
         this.getLastRental(carId);
         this.getCurrentCarInfo(carId);
         Singleton.RENT.carId = carId;
@@ -81,7 +81,8 @@ export class RentComponent implements OnInit {
   ): boolean {
     let rentDate = new Date(rentD);
     let isAvaliable = true;
-    if (rentQueryResult !== null) {
+    if (rentQueryResult) {
+      console.log(rentQueryResult)
        isAvaliable =
         new Date(rentQueryResult.returnDate).valueOf() <
         new Date(rentDate).valueOf();

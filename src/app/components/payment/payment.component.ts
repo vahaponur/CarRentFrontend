@@ -32,16 +32,28 @@ export class PaymentComponent implements OnInit {
   addRent(){
     this.rentService.addRental(Singleton.RENT).subscribe(res=>{
       this.toastr.success(res.message.replace('Öğe','Araç'));
+   
     });
   }
   getPayment(){
     if (this.creditCardForm.valid) {
       let card = Object.assign({},this.creditCardForm.value);
-      this.bankService.makePayment(card).subscribe(res=>{
+      this.rentService.addRental(Singleton.RENT).subscribe(res=>{
         if (res.success) {
-          this.addRent();
-          this.toastr.success(res.message);
+          this.bankService.makePayment(card).subscribe(res2=>{
+            if (res2.success) {
+              this.toastr.success(res2.message)
+            }
+            else  this.toastr.error(res2.message);
+          });
+          this.toastr.success("Successfully Rented");
         }
+        else{
+          this.toastr.error(res.message);
+        }
+      },resError=>{
+          console.log(resError);
+          
       })
     }
   }

@@ -40,7 +40,7 @@ export class BrandAddComponent implements OnInit {
       }
     })
    }
-   else 
-   console.log("dfsdfsd");
+   
+ 
  }
 }

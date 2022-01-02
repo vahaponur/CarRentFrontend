@@ -5,6 +5,7 @@ import { Color } from 'src/app/models/color/color';
 
 import { ListResponseModel } from 'src/app/models/responseModels/listResponseModel';
 import { DataResponseModel } from 'src/app/models/responseModels/dataResponseModel';
+import { ResponseModel } from 'src/app/models/responseModels/responseModel';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,9 @@ export class ColorService {
     let newPath = this.apiUrl + 'getbyid?id=' + id;
 
     return this.httpClient.get<DataResponseModel<Color>>(newPath); 
+  }
+  addColor(color:Color):Observable<ResponseModel>{
+    let newPath = this.apiUrl + 'add'
+    return this.httpClient.post<ResponseModel>(newPath,color);
   }
 }

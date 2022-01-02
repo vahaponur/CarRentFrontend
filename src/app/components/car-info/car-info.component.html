@@ -59,7 +59,7 @@
       <td>{{ carInfo.name }}</td>
       <td>{{ carInfo.dailyPrice|currency:'₺' }}</td>
       <td>{{ carInfo.modelYear }}</td>
-
+      <td> <button class="btn btn-success btn-sm" routerLink="/update/car/{{carInfo.carId}}"> Güncelle</button></td>
     </tr>
   </tbody>
 </table>

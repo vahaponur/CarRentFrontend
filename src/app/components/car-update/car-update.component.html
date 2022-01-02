@@ -1,0 +1,79 @@
+<div class="container-fluid">
+  <div class="row">
+    <div *ngIf="dataUploaded" class="col">
+      <h3>Update - Car Id: {{car.id}}</h3>
+      <form [formGroup]="carInfoForm">
+        
+        <div class="mb-3">
+          <label for="brandId" class="form-label">Brand Name</label>
+          <select 
+            class="form-control"
+            id="brandId"
+            formControlName="brandId"
+            (click)="debugSelect()"
+          >
+          <option selected [ngValue]="car.brandId">{{carInfo.brandName}}</option>
+          <ng-container *ngFor="let brand of brands">
+            <option *ngIf="brand.id!==car.brandId" [ngValue]="brand.id">{{brand.name}}</option>
+          </ng-container>
+        </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="colorId" class="form-label">Color Name</label>
+          <select 
+          class="form-control"
+          id="colorId"
+          formControlName="colorId"
+        >
+        <option selected [ngValue]="car.colorId">{{carInfo.colorName}}</option>
+        <ng-container *ngFor="let color of colors">
+          <option *ngIf="color.id!==car.colorId" [ngValue]="color.id">{{color.name}}</option>
+        </ng-container>
+      </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="modelYear" class="form-label">Model Year</label>
+          <input
+            type="number"
+            class="form-control"
+            id="modelYear"
+            formControlName="modelYear"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="dailyPrice" class="form-label">Daily Price</label>
+          <input
+            type="number"
+            class="form-control"
+            id="dailyPrice"
+            formControlName="dailyPrice"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            id="description"
+            formControlName="description"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            formControlName="name"
+          />
+        </div>
+
+        <button (click)="update()" class="btn btn-success">Ekle</button>
+      </form>
+    </div>
+  </div>
+</div>
