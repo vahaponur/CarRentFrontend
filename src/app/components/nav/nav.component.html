@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light bg-light-beige mb-5 py-3">
+<nav *ngIf="dataLoaded" class="navbar navbar-expand-lg navbar-light bg-light bg-light-beige mb-5 py-3">
     <div class="container color-1">
     
       <a class="navbar-brand text-dark-brown font-oldstandart fs-3 me-5 ms-4" href="#">Doki Doki Car</a>
@@ -23,9 +23,13 @@
         
         </ul>
      
-        <div class="">
+        <div *ngIf="!isLogged" class="">
           <button  type="button" class="btn btn-warning text-white me-2">Login</button>
           <button [routerLink]="['/register']" type="button" class="btn text-white btn-warning">Register</button>
+        </div>
+        
+        <div *ngIf="isLogged" class="">
+         <span class="text-white">Welcome {{user.firstName}} {{user.lastName}}</span>
         </div>
       </div>
     </div>

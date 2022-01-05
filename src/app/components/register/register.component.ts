@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Customer } from 'src/app/models/customer/customer';
+
 import { UserRegister } from 'src/app/models/user/userRegister';
+import { UserSingleton } from 'src/app/models/userConst';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CustomerService } from 'src/app/services/customer/customer.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -52,15 +53,14 @@ export class RegisterComponent implements OnInit {
       if (response.success) {
         this.toastrService.success('Kayıt Olunuyor...')
         localStorage.setItem("token",response.data.token)
+    
         this.addCustomer(userToRegister.email,companyName);
         
       }
       else this.toastrService.error(response.message)
     },resError=>{
-      
-     
      if (resError.error.Errors.length > 0) {
-      console.log(resError);
+      
       for (let index = 0; index < resError.error.Errors.length; index++) {
         this.toastrService.error(resError.error.Errors[index].ErrorMessage); 
        }
@@ -71,15 +71,28 @@ export class RegisterComponent implements OnInit {
   }
   addCustomer(userEmail:string,customerName:string){
     this.userService.getByEmail(userEmail).subscribe(res=>{
+     
       let customer:any= {
         companyName:customerName,
         userId:res.data.id
       }
-
       this.customerService.addCustomer(customer).subscribe(response=>{
-        //What happens after customer add
-        this.router.navigateByUrl('/');
+        if (response.success) {
+          let userObject = {
+            id:res.data.id,
+            firstName:res.data.firstName,
+            lastName:res.data.lastName,
+            email:res.data.email,
+            status:res.data.status
+          }
+          localStorage.setItem("user",JSON.stringify(userObject));
+          if (localStorage.getItem("user")) {
+        this.router.navigateByUrl('/').then(()=>{window.location.reload();})
+            
+          }
+        }
       })
     })
   }
+  
 }

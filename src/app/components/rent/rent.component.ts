@@ -7,7 +7,7 @@ import { Car } from 'src/app/models/car/car';
 import { CarInfo } from 'src/app/models/carInfo/carInfo';
 import { PostModel } from 'src/app/models/postModel/postModel';
 import { Rental } from 'src/app/models/rental/rental';
-import { Singleton } from 'src/app/models/rentConst';
+import { RentSingleton } from 'src/app/models/rentConst';
 
 import { CarInfoService } from 'src/app/services/carInfo/car-info.service';
 import { RentalService } from 'src/app/services/rental/rental.service';
@@ -57,7 +57,7 @@ export class RentComponent implements OnInit {
         let carId = Number (param['carId'])
         this.getLastRental(carId);
         this.getCurrentCarInfo(carId);
-        Singleton.RENT.carId = carId;
+        RentSingleton.RENT.carId = carId;
       }
     });
   }
@@ -125,9 +125,9 @@ export class RentComponent implements OnInit {
       let rent:Rental = Object.assign({}, this.rentForm.value);
       if (this.rentDateAvaliable(rent.rentDate,this.lastRentOfCar)
       &&this.controlDates(rent.rentDate,rent.returnDate)) {
-        Singleton.RENT.customerId=3;
-        Singleton.RENT.rentDate=rent.rentDate;
-        Singleton.RENT.returnDate=rent.returnDate;
+        RentSingleton.RENT.customerId=3;
+        RentSingleton.RENT.rentDate=rent.rentDate;
+        RentSingleton.RENT.returnDate=rent.returnDate;
         return true;
       }
     }
@@ -136,7 +136,7 @@ export class RentComponent implements OnInit {
   }
   paymentLink(){
     if (this.setRent()) {
-      this.paymentLinkInfo='/pay/'+Singleton.RENT.carId;
+      this.paymentLinkInfo='/pay/'+RentSingleton.RENT.carId;
       this.router.navigateByUrl(this.paymentLinkInfo);
       return true;
     }

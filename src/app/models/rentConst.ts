@@ -1,5 +1,5 @@
 import { Rental } from "./rental/rental";
 
-export  class Singleton{
+export  class RentSingleton{
     public static RENT:Rental = new Rental();
 }

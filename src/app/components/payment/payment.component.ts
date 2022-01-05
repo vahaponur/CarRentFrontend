@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Singleton } from 'src/app/models/rentConst';
+import { RentSingleton } from 'src/app/models/rentConst';
 import { BankService } from 'src/app/services/bank/bank.service';
 import { RentalService } from 'src/app/services/rental/rental.service';
 
@@ -30,7 +30,7 @@ export class PaymentComponent implements OnInit {
     })
   }
   addRent(){
-    this.rentService.addRental(Singleton.RENT).subscribe(res=>{
+    this.rentService.addRental(RentSingleton.RENT).subscribe(res=>{
       this.toastr.success(res.message.replace('Öğe','Araç'));
    
     });
@@ -38,7 +38,7 @@ export class PaymentComponent implements OnInit {
   getPayment(){
     if (this.creditCardForm.valid) {
       let card = Object.assign({},this.creditCardForm.value);
-      this.rentService.addRental(Singleton.RENT).subscribe(res=>{
+      this.rentService.addRental(RentSingleton.RENT).subscribe(res=>{
         if (res.success) {
           this.bankService.makePayment(card).subscribe(res2=>{
             if (res2.success) {
