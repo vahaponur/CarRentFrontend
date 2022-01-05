@@ -1,0 +1,48 @@
+<form [formGroup]="registerForm">
+    
+    <div class="container-fluid name-field">
+        <div class="row mt-2">
+            <div class="col text-center">
+                <h1>Register</h1>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <label for="firstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="firstName" formControlName="firstName">
+            </div>
+            <div class="col">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lastName" formControlName="lastName">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" formControlName="email">
+              </div>  
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" formControlName="password">
+              </div>  
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <label for="companyName" class="form-label">Company Name (not necessary if you want to rent personal)</label>
+                <input type="text" class="form-control" id="companyName" formControlName="companyName">
+              </div>  
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <button type="submit" (click)="registerOperation()" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+
+
+ 
+   
+  </form>
+

@@ -9,6 +9,7 @@ import { CarUpdateComponent } from './components/car-update/car-update.component
 import { CarComponent } from './components/car/car.component';
 import { ColorAddComponent } from './components/color-add/color-add.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { RegisterComponent } from './components/register/register.component';
 import { RentComponent } from './components/rent/rent.component';
 
 const routes: Routes = [{path:"",pathMatch:"full",component:CarInfoComponent},
@@ -21,7 +22,8 @@ const routes: Routes = [{path:"",pathMatch:"full",component:CarInfoComponent},
 {path:"add/brand",pathMatch:"full",component:BrandAddComponent},
 {path:"add/car",pathMatch:"full",component:CarAddComponent},
 {path:"add/color",pathMatch:"full",component:ColorAddComponent},
-{path:"update/car/:carId",pathMatch:"full",component:CarUpdateComponent}
+{path:"update/car/:carId",pathMatch:"full",component:CarUpdateComponent},
+{path:"register",component:RegisterComponent}
 ];
 
 @NgModule({
