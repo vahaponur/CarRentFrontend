@@ -7,6 +7,7 @@ import { UserRegister } from 'src/app/models/user/userRegister';
 import { UserSingleton } from 'src/app/models/userConst';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CustomerService } from 'src/app/services/customer/customer.service';
+import { TokenService } from 'src/app/services/localStorage/tokenService';
 import { RouterExtensionService } from 'src/app/services/routerService';
 import { UserService } from 'src/app/services/user/user.service';
 
@@ -25,7 +26,8 @@ export class RegisterComponent implements OnInit {
     private toastrService: ToastrService,
     private customerService:CustomerService,
     private router:Router,
-    private routerExtension:RouterExtensionService
+    private routerExtension:RouterExtensionService,
+    private tokenService:TokenService
   ) {}
 
   ngOnInit(): void { this.createForm()}
@@ -54,8 +56,7 @@ export class RegisterComponent implements OnInit {
     this.authService.register(userToRegister).subscribe((response) => {
       if (response.success) {
         this.toastrService.success('Kayıt Olunuyor...')
-        localStorage.setItem("token",response.data.token)
-        localStorage.setItem("tokenExpiration",response.data.expiration)
+        this.tokenService.AddTokenLocal(response.data)
         this.addCustomer(userToRegister.email,companyName);
         
       }

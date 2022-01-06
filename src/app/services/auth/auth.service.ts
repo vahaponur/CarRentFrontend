@@ -5,13 +5,14 @@ import { DataResponseModel } from 'src/app/models/responseModels/dataResponseMod
 import { TokenModel } from 'src/app/models/tokenModel';
 import { UserLogin } from 'src/app/models/user/userLogin';
 import { UserRegister } from 'src/app/models/user/userRegister';
+import { TokenService } from '../localStorage/tokenService';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   apiUrl ='https://localhost:44349/api/auth/';
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient,private tokenService:TokenService) { }
 
   register(userRegisterModel:UserRegister):Observable<DataResponseModel<TokenModel>>{
     let newPath = this.apiUrl + 'register';
@@ -30,8 +31,7 @@ export class AuthService {
       if (new Date().valueOf()-expDate.valueOf()<0) {
         return true;
       }else{
-        localStorage.removeItem("token")
-        localStorage.removeItem("tokenExpiration")
+        this.tokenService.RemoveToken()
         return false
       } 
     }

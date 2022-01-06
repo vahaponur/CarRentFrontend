@@ -8,6 +8,7 @@ import { CarInfoComponent } from './components/car-info/car-info.component';
 import { CarUpdateComponent } from './components/car-update/car-update.component';
 import { CarComponent } from './components/car/car.component';
 import { ColorAddComponent } from './components/color-add/color-add.component';
+import { LoginComponent } from './components/login/login.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { RegisterComponent } from './components/register/register.component';
 import { RentComponent } from './components/rent/rent.component';
@@ -23,7 +24,8 @@ const routes: Routes = [{path:"",pathMatch:"full",component:CarInfoComponent},
 {path:"add/car",pathMatch:"full",component:CarAddComponent},
 {path:"add/color",pathMatch:"full",component:ColorAddComponent},
 {path:"update/car/:carId",pathMatch:"full",component:CarUpdateComponent},
-{path:"register",component:RegisterComponent}
+{path:"register",component:RegisterComponent},
+{path:"login",component:LoginComponent}
 ];
 
 @NgModule({
