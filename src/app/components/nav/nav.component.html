@@ -24,12 +24,14 @@
         </ul>
      
         <div *ngIf="!isLogged" class="">
-          <button  type="button" class="btn btn-warning text-white me-2">Login</button>
+          <button [routerLink]="['/login']"  type="button" class="btn btn-warning text-white me-2">Login</button>
           <button [routerLink]="['/register']" type="button" class="btn text-white btn-warning">Register</button>
         </div>
         
         <div *ngIf="isLogged" class="">
-         <span class="text-white">Welcome {{user.firstName}} {{user.lastName}}</span>
+         <span class="text-white">Welcome {{user.firstName}} {{user.lastName}}</span><br>
+         <button [routerLink]="['/']" (click)="logOut()" type="button" class=" text-white btn-warning">Log Out</button>
+
         </div>
       </div>
     </div>

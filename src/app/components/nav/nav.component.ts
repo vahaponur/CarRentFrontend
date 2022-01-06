@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user/user';
 import { UserSingleton } from 'src/app/models/userConst';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { RouterExtensionService } from 'src/app/services/routerService';
 
 @Component({
   selector: 'app-nav',
@@ -12,7 +13,7 @@ export class NavComponent implements OnInit {
   isLogged:boolean
   user:User;
   dataLoaded:boolean =false;
-  constructor(private authService:AuthService) {}
+  constructor(private authService:AuthService,private routerExtension:RouterExtensionService) {}
 
   ngOnInit(): void {
     this.isLoggedIn()
@@ -26,5 +27,12 @@ export class NavComponent implements OnInit {
     }
     this.dataLoaded = true;
   }
-
+  logOut(){
+    if (localStorage.getItem("token")&&localStorage.getItem("tokenExpiration")) {
+      localStorage.removeItem("user");
+      localStorage.removeItem("token")
+      localStorage.removeItem("tokenExpiration")
+      this.routerExtension.navigateWithReload("/")
+    }
+  }
 }

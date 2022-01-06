@@ -7,6 +7,7 @@ import { UserRegister } from 'src/app/models/user/userRegister';
 import { UserSingleton } from 'src/app/models/userConst';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CustomerService } from 'src/app/services/customer/customer.service';
+import { RouterExtensionService } from 'src/app/services/routerService';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -23,7 +24,8 @@ export class RegisterComponent implements OnInit {
     private userService: UserService,
     private toastrService: ToastrService,
     private customerService:CustomerService,
-    private router:Router
+    private router:Router,
+    private routerExtension:RouterExtensionService
   ) {}
 
   ngOnInit(): void { this.createForm()}
@@ -53,7 +55,7 @@ export class RegisterComponent implements OnInit {
       if (response.success) {
         this.toastrService.success('Kayıt Olunuyor...')
         localStorage.setItem("token",response.data.token)
-    
+        localStorage.setItem("tokenExpiration",response.data.expiration)
         this.addCustomer(userToRegister.email,companyName);
         
       }
@@ -87,12 +89,13 @@ export class RegisterComponent implements OnInit {
           }
           localStorage.setItem("user",JSON.stringify(userObject));
           if (localStorage.getItem("user")) {
-        this.router.navigateByUrl('/').then(()=>{window.location.reload();})
+          this.routerExtension.navigateWithReload("/");
             
           }
         }
       })
     })
   }
+  
   
 }

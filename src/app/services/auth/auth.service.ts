@@ -22,8 +22,18 @@ export class AuthService {
     return this.httpClient.post<DataResponseModel<TokenModel>>(newPath,userLogin);
   }
   isAuthenticated(){
-    if (localStorage.getItem("token")) {
-      return true;
+    let expiration = localStorage.getItem("tokenExpiration");
+    let token = localStorage.getItem("token");
+    let expDate = new Date(Date.parse(expiration||'{}'));
+
+    if (token && expiration) { 
+      if (new Date().valueOf()-expDate.valueOf()<0) {
+        return true;
+      }else{
+        localStorage.removeItem("token")
+        localStorage.removeItem("tokenExpiration")
+        return false
+      } 
     }
     return false;
   }

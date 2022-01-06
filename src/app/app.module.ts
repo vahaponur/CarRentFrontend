@@ -37,6 +37,7 @@ import { CarAddComponent } from './components/car-add/car-add.component';
 import { ColorAddComponent } from './components/color-add/color-add.component';
 import { CarUpdateComponent } from './components/car-update/car-update.component';
 import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { RegisterComponent } from './components/register/register.component';
      CarAddComponent,
      ColorAddComponent,
      CarUpdateComponent,
-     RegisterComponent
+     RegisterComponent,
+     LoginComponent
   ],
   imports: [
     BrowserModule,
