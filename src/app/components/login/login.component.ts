@@ -61,16 +61,8 @@ export class LoginComponent implements OnInit {
   }
   getUser(email: string) {
     this.userService.getByEmail(email).subscribe((res) => {
-      if (res.success) {
-        let userObject = {
-          id: res.data.id,
-          firstName: res.data.firstName,
-          lastName: res.data.lastName,
-          email: res.data.email,
-          status: res.data.status,
-        };
-        localStorage.setItem('user', JSON.stringify(userObject));
-        if (localStorage.getItem('user')) {
+      if (res.success) {    
+        if (this.userService.setUserSession(res.data)) {
           this.routerExtension.navigateWithReload('/');
         }
       }

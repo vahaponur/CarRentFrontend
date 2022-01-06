@@ -24,5 +24,31 @@ export class UserService {
    let newPath = this.apiUrl + 'getbyemail?email='+email;
    return this.httpClient.get<DataResponseModel<User>>(newPath);
  }
+ setUserSession(user:User){
+   if (!user) {
+     return false;
+   }
+  let userObject = {
+    id: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    status: user.status,
+  };
+  localStorage.setItem('user', JSON.stringify(userObject));
+  return true;
+ }
+ getSessionUser():(User|undefined){
+   let user=localStorage.getItem('user')
+
+   if (user) {
+     let sesUser:User=JSON.parse(user);
+     return sesUser;
+   }
+   return undefined
+ }
+ deleteSessionUser(){
+  localStorage.removeItem("user");
+ }
  
 }
