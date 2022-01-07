@@ -39,6 +39,9 @@ import { CarUpdateComponent } from './components/car-update/car-update.component
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { FooterComponent } from './components/footer/footer.component';
+import { CarBrandColorComponent } from './components/car-brand-color/car-brand-color.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +68,10 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
      ColorAddComponent,
      CarUpdateComponent,
      RegisterComponent,
-     LoginComponent
+     LoginComponent,
+     FooterComponent,
+     CarBrandColorComponent,
+     HomepageComponent
   ],
   imports: [
     BrowserModule,

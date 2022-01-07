@@ -16,7 +16,7 @@ tr{
 }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #876445; }
 .font-oldstandart{
-    font-family: 'Old Standard TT', serif;
+    font-family: 'Old Standard TT', serif !important;
 }
 .text-dark-brown{
     color: #876445 !important;

@@ -10,8 +10,8 @@
   />
 </div>
 <div class="container-fluid">
-  <div class="row">
-    <div class="col">
+  <div class="row gx-5">
+    <div class="col form-control">
       <select [(ngModel)]="colorSearch" class="form-select">
         <option selected value="">All Colors</option>
         <option *ngFor="let color of colors" value="{{ color.name }}">
@@ -19,7 +19,7 @@
         </option>
       </select>
     </div>
-    <div class="col">
+    <div class="col form-control">
       <select
         [(ngModel)]="brandSearch"
         class="form-select"
