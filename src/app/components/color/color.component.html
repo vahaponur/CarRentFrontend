@@ -5,7 +5,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr [class]="getCurrentColorClass(color)" routerLink="color/{{color.id}}" (click)="setCurrentColor(color)" *ngFor="let color of colors | slice:0:20">
+      <tr [class]="getDefaultColorClass()" routerLink="/cars" (click)="clearCurrentColor()">
+        <td>All Vehicles</td>
+      </tr>
+      <tr [class]="getCurrentColorClass(color)" routerLink="/color/{{color.id}}" (click)="setCurrentColor(color)" *ngFor="let color of colors ">
        
         <td>{{color.name}}</td>
     
