@@ -9,6 +9,7 @@ import { BrandService } from 'src/app/services/brand/brand.service';
 import { CarService } from 'src/app/services/car/car.service';
 import { CarInfoService } from 'src/app/services/carInfo/car-info.service';
 import { ColorService } from 'src/app/services/color/color.service';
+import { LocalStorageService } from 'src/app/services/localStorage/localStorageService';
 
 @Component({
   selector: 'app-car-info',
@@ -27,18 +28,21 @@ export class CarInfoComponent implements OnInit {
    private activatedRoute:ActivatedRoute,
    private colorService:ColorService,
    private brandService:BrandService,
-   private router:Router
+   private router:Router,
+   private localStorageService:LocalStorageService<Car>
   ) {}
   ngOnInit(): void {
     this.getBrands();
     this.getColors();
     if (this.router.url=='/avaliableCars') {
       this.carInfos.length = 0;
-      
-      AvaliableCarsSingleton.AVALIABLECARS.forEach(element => {
-        console.log(element);
+      let Cars:Car[]=this.localStorageService.getItemsFromArray<Car>("avaliableCars");
+     
+        Cars.forEach(element => {
         this.getCarInfoByWhole(element.id);
-      });
+          
+        });
+      
     }
     else{
       this.activatedRoute.params.subscribe(res=>{
