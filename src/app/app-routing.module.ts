@@ -18,8 +18,8 @@ import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [{path:"",pathMatch:"full",component:HomepageComponent},
 {path:"cars",component:CarBrandColorComponent},
-{path:"brand/:brandId",component:CarInfoComponent},
-{path:"color/:colorId",component:CarInfoComponent},
+{path:"brand/:brandId",component:CarBrandColorComponent},
+{path:"color/:colorId",component:CarBrandColorComponent},
 {path:"car/:carId", pathMatch:"full",component:CarDetailComponent},
 {path:"rent/:carId", pathMatch:"full",component:RentComponent},
 {path:"pay/:carId",pathMatch:"full",component:PaymentComponent},
@@ -28,7 +28,8 @@ const routes: Routes = [{path:"",pathMatch:"full",component:HomepageComponent},
 {path:"add/color",pathMatch:"full",component:ColorAddComponent,canActivate:[LoginGuard]},
 {path:"update/car/:carId",pathMatch:"full",component:CarUpdateComponent,canActivate:[LoginGuard]},
 {path:"register",component:RegisterComponent},
-{path:"login",component:LoginComponent}
+{path:"login",component:LoginComponent},
+{path:"avaliableCars",component:CarBrandColorComponent}
 ];
 
 @NgModule({

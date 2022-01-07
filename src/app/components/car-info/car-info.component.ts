@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AvaliableCarsSingleton } from 'src/app/models/avaliableCarsSingleton';
 import { Brand } from 'src/app/models/brand/brand';
 import { Car } from 'src/app/models/car/car';
 import { CarInfo } from 'src/app/models/carInfo/carInfo';
@@ -25,25 +26,38 @@ export class CarInfoComponent implements OnInit {
    private carInfoService:CarInfoService,
    private activatedRoute:ActivatedRoute,
    private colorService:ColorService,
-   private brandService:BrandService
+   private brandService:BrandService,
+   private router:Router
   ) {}
   ngOnInit(): void {
     this.getBrands();
     this.getColors();
-    this.activatedRoute.params.subscribe(res=>{
-      if (res["brandId"]) {
-        this.getCarInfosByBrandId(res["brandId"]);
-      }
-      else if (res["colorId"]) {
-        this.getCarInfosByColorId(res["colorId"]);
-      }
-      else if(res["carId"]){
-        this.getCarInfoById(res["carId"]);
-      }
-      else{
-        this.getCarInfos();
-      }
-    })
+    if (this.router.url=='/avaliableCars') {
+      this.carInfos.length = 0;
+      
+      AvaliableCarsSingleton.AVALIABLECARS.forEach(element => {
+        console.log(element);
+        this.getCarInfoByWhole(element.id);
+      });
+    }
+    else{
+      this.activatedRoute.params.subscribe(res=>{
+        if (res["brandId"]) {
+          this.getCarInfosByBrandId(res["brandId"]);
+        }
+        else if (res["colorId"]) {
+          this.getCarInfosByColorId(res["colorId"]);
+        }
+        else if(res["carId"]){
+          this.getCarInfoById(res["carId"]);
+        }
+        
+        else{
+          this.getCarInfos();
+        }
+      })
+    }
+   
 
   }
   getCarInfos(){
@@ -64,6 +78,12 @@ export class CarInfoComponent implements OnInit {
   getCarInfoById(carId:number){
     this.carInfoService.getCarDetailsById(carId).subscribe(response=>{
       this.carInfos.length=0;
+      this.carInfos.push(response.data)
+    })
+  }
+  getCarInfoByWhole(carId:number){
+    this.carInfoService.getCarDetailsById(carId).subscribe(response=>{
+
       this.carInfos.push(response.data)
     })
   }

@@ -36,4 +36,15 @@ export class CarService {
     let newPath = this.apiUrl +'update'
     return this.httpClient.patch<ResponseModel>(newPath,car);
   }
+  getAvaliableCarsByDateInterval(rentDate: string, returnDate: string):Observable<ListResponseModel<Car>> {
+    let newPath =
+      this.apiUrl +
+      'getavaliablecarsbydateinterval?rentDate=' +
+      rentDate +
+      '&' +
+      'returnDate' +
+      '=' +
+      returnDate;
+      return this.httpClient.get<ListResponseModel<Car>>(newPath);
+  }
 }
