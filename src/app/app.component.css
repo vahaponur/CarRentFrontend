@@ -1,0 +1,9 @@
+main{
+    display: block;
+    position: relative;
+    min-height: 100vh;
+}
+.content{
+    margin-top: 3rem;
+  padding-bottom: 15rem; 
+}

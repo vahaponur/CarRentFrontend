@@ -10,7 +10,7 @@
             class="form-control"
             id="brandId"
             formControlName="brandId"
-            (click)="debugSelect()"
+            
           >
           <option selected [ngValue]="car.brandId">{{carInfo.brandName}}</option>
           <ng-container *ngFor="let brand of brands">

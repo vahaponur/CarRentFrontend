@@ -25,8 +25,10 @@ export class ColorComponent implements OnInit {
   }
   setCurrentColor(color: Color) {
     this.currentColor = color;
+
   }
   getCurrentColorClass(color: Color) {
+    
     if (this.currentColor == color) {
       return "table-primary";
     }
@@ -37,7 +39,7 @@ export class ColorComponent implements OnInit {
   }
   getDefaultColorClass(){
     if (this.currentColor == this.defaultColor) {
-      return "table-primary";
+      return "";
     }
     return ""
   }

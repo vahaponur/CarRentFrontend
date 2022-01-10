@@ -1,16 +1,35 @@
-<div class="container-fluid">
+<div *ngIf="dataLoaded" class="container-sm">
     <div class="row">
         <div class="col">
             <form [formGroup]="carForm">
-                <div class="mb-3">
-                    <label for="brandId" class="form-label">Brand Id</label>
-                    <input type="number" class="form-control" id="brandId" formControlName="brandId">
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="colorId" class="form-label">Color Id</label>
-                    <input type="number" class="form-control" id="colorId" formControlName="colorId">
-                  </div>
+              <div class="mb-3">
+                <label for="brandId" class="form-label">Brand Name</label>
+                <select 
+                  class="form-control"
+                  id="brandId"
+                  formControlName="brandId"
+                  
+                >
+                
+                <ng-container *ngFor="let brand of brands">
+                  <option [ngValue]="brand.id">{{brand.name}}</option>
+                </ng-container>
+              </select>
+              </div>
+      
+              <div class="mb-3">
+                <label for="colorId" class="form-label">Color Name</label>
+                <select 
+                class="form-control"
+                id="colorId"
+                formControlName="colorId"
+              >
+          
+              <ng-container *ngFor="let color of colors">
+                <option  [ngValue]="color.id">{{color.name}}</option>
+              </ng-container>
+            </select>
+              </div>
 
                   <div class="mb-3">
                     <label for="modelYear" class="form-label">Model Year</label>

@@ -1,14 +1,14 @@
-<table class="table">
+<table class="table table-dark table-hover">
     <thead>
       <tr>
         <th scope="col">Color</th>
       </tr>
     </thead>
     <tbody>
-      <tr [class]="getDefaultColorClass()" routerLink="/cars" (click)="clearCurrentColor()">
+      <tr (click)="clearCurrentColor()" [class]="getDefaultColorClass()" routerLink="/cars" >
         <td>All Vehicles</td>
       </tr>
-      <tr [class]="getCurrentColorClass(color)" routerLink="/color/{{color.id}}" (click)="setCurrentColor(color)" *ngFor="let color of colors ">
+      <tr (click)="setCurrentColor(color)" [class]="getCurrentColorClass(color)" routerLink="/color/{{color.id}}"  *ngFor="let color of colors ">
        
         <td>{{color.name}}</td>
     
